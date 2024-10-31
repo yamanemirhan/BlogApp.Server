@@ -1,9 +1,7 @@
 ﻿using BlogApp.Application.DTOs.Responses;
 using BlogApp.Application.Interfaces;
 using BlogApp.Domain.Repositories;
-using BlogApp.Infrastructure.Repositories;
 using System.ComponentModel.DataAnnotations;
-using static System.Net.WebRequestMethods;
 
 namespace BlogApp.Infrastructure.Services
 {
@@ -26,12 +24,15 @@ namespace BlogApp.Infrastructure.Services
                 user.Username = username;
             }
 
-            if(profileImageUrl != null)
+            Console.WriteLine("PROFILE IMAGE URL: " + profileImageUrl);
+            Console.WriteLine("USER PROFILE IMAGE URL: " + user.ProfileImageUrl);
+
+
+            if (profileImageUrl != null)
             {
-                user.ProfileImageUrl = profileImageUrl;
-            } else
-            {
-                user.ProfileImageUrl = "https://res.cloudinary.com/dcj1bb8vk/image/upload/v1728852537/blogapp/default-user_uo85fb.jpg";
+                user.ProfileImageUrl = string.IsNullOrEmpty(profileImageUrl)
+                    ? "https://res.cloudinary.com/dcj1bb8vk/image/upload/v1728852537/blogapp/default-user_uo85fb.jpg"
+                    : profileImageUrl;
             }
 
             user = await userRepository.UpdateAsync(user);
