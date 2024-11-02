@@ -22,10 +22,11 @@ builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         //options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-        //options.JsonSerializerOptions.MaxDepth = 64; 
+        //options.JsonSerializerOptions.MaxDepth = 32; 
 
 
-        options.JsonSerializerOptions.ReferenceHandler = null; 
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.MaxDepth = 32;
         options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
         options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
         options.JsonSerializerOptions.WriteIndented = false; 
